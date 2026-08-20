@@ -1,0 +1,47 @@
+export const serviceMenuLinks = [
+  { label: "Book Publishing", slug: "book-publishing" },
+  { label: "KDP Publishing", slug: "kdp-publishing" },
+  { label: "Apple Book Publishing", slug: "apple-book-publishing" },
+  { label: "Barnes Publishing", slug: "barnes-publishing" },
+  { label: "Kobo Book Publishing", slug: "kobo-book-publishing" },
+  { label: "Book Marketing", slug: "book-marketing" },
+  { label: "Book Editing", slug: "book-editing" },
+  { label: "Ghostwriting", slug: "ghostwriting" },
+  { label: "Book Cover Design", slug: "book-cover-design" },
+  { label: "Children's Book Publishing", slug: "childrens-book-publishing" },
+  { label: "Christian Book Publishing", slug: "christian-book-publishing" },
+  { label: "Audiobook Book Publishing", slug: "audiobook-book-publishing" },
+] as const;
+
+export type ServiceSlug = (typeof serviceMenuLinks)[number]["slug"];
+
+export function servicePath(slug: ServiceSlug) {
+  return `/services/${slug}` as const;
+}
+
+export const serviceDescriptions: Record<ServiceSlug, string> = {
+  "book-publishing":
+    "Self publishing on Amazon, Barnes & Noble, and IngramSpark — editing, cover design, formatting, SEO, and full distribution support.",
+  "kdp-publishing":
+    "Amazon KDP publishing services — editing, formatting, cover design, marketing, and full Kindle Direct Publishing support.",
+  "apple-book-publishing":
+    "Apple Book publishing services for self-published authors — editing, formatting, cover design, multi-platform distribution, and full royalties.",
+  "barnes-publishing":
+    "Barnes and Noble ebook publishing services — manuscript editing, formatting, cover design, multi-platform distribution, and full royalties.",
+  "kobo-book-publishing":
+    "All-inclusive self-publishing for Kobo books and ebooks — formatting, cover design, Kobo setup, and full royalties support.",
+  "book-marketing":
+    "Boost your book sales with top book marketing services — Amazon marketing, social media, SEO, and proven promotion strategies.",
+  "book-editing":
+    "Hire top book editors in the USA — professional copy editing, line editing, proofreading, and Amazon-ready manuscript polish.",
+  ghostwriting:
+    "Best ghostwriting services for books — fiction, non-fiction, memoirs, children's books, and collaborative writing with full ownership rights.",
+  "book-cover-design":
+    "Creative book cover designs — unique genre-focused covers, hardboard and paperback options, and print-ready files that attract readers.",
+  "childrens-book-publishing":
+    "Leading children's book publishers — storytelling, illustrations, formatting, Amazon publishing, and marketing for kids' books.",
+  "christian-book-publishing":
+    "Top Christian book publishers in the USA — faith-based publishing, Christian children's books, editing, and full publishing support.",
+  "audiobook-book-publishing":
+    "Professional narration, studio production and distribution so your story reaches listeners across major audiobook platforms.",
+};

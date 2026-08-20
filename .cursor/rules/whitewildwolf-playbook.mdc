@@ -1,0 +1,66 @@
+---
+description: "Trigger phrase whitewildwolf — full-site delivery playbook (forms, Zendesk, email, SEO/perf)."
+alwaysApply: false
+---
+
+# whitewildwolf playbook
+
+When the user message contains **whitewildwolf** (any case), treat it as a request to apply this **multi-brand publishing / services site** checklist unless they narrow scope.
+
+## Forms & backend
+
+- Contact / quote forms POST to a **same-origin PHP** endpoint (e.g. `sendmail.php` / `api/sendmail.php`); fix `__DIR__` / includes for both entry paths.
+- **Validation**, spam basics (honeypot / rate limit if present), clear JSON or redirect responses.
+- Production **env** for API base path; avoid full URL in `VITE_BASE`.
+
+## Email
+
+- **HTML + plain-text** parts; readable from mobile clients; brand name, reply-to, subject lines per form type.
+- Central mail config; handle errors without leaking internals to the client.
+
+## Zendesk / chat
+
+- Load snippet **after window load + idle** (or interaction-only if PageSpeed is the priority).
+- **Auto-open on load** when the client asks (desktop + mobile); otherwise defer open to protect LCP.
+- **Live Chat** buttons open widget with **phone fallback** if `zE` missing.
+- **SPA**: sync **title + URL** to Zendesk after route changes.
+
+## SEO & head
+
+- Per-route **`document.title`**, **meta description**, **canonical**, **Open Graph / Twitter** (SPA updates via a small head helper).
+- **`robots.txt`** + **`sitemap.xml`**; **JSON-LD** Organization + WebSite; optional `VITE_SITE_URL` for canonical origin.
+- **404**: `noindex` for unknown routes; thin pages only if requested.
+
+## Performance (baseline)
+
+- Hero LCP image: **`fetchPriority="high"`**, **`decoding="async"`**, intrinsic **width/height** where applicable.
+- **Cache-Control** for static assets (Apache `.htaccess` or host equivalent).
+- Heavy third-party (chat, fonts): defer / subset / self-host when scores matter.
+
+## UX polish
+
+- Mobile **sticky call** tab (portal to `body`), accessible label, **motion-reduce** respected for animations.
+- Match existing **Tailwind / component** patterns; minimal diffs per task.
+
+## Inquiry admin dashboard (reusable pattern)
+
+- Build a protected admin flow with:
+  - list route: `/inquiry-details`
+  - detail route: `/inquiry-details/:id`
+  - PHP API route: `api/inquiry-details.php` with `action=login|logout|session|list|detail`
+- Keep login credentials as **hashes only** in `includes/inquiry-admin-auth.php` and verify with `password_verify`.
+- Provide hash regeneration commands in comments:
+  - `php -r "echo password_hash(strtolower(trim('your-new-email@example.com')), PASSWORD_DEFAULT), PHP_EOL;"`
+  - `php -r "echo password_hash('YourNewStrongPassword', PASSWORD_DEFAULT), PHP_EOL;"`
+- Use session auth for dashboard access; block list/detail actions unless logged in.
+- Dashboard list UX defaults:
+  - table with `name/email/phone/source/created_at`
+  - **View Details** opens dedicated detail page route
+  - email/phone clickable (`mailto:` / `tel:`)
+  - pagination at **50 records per page**
+  - preserve selected page via URL query (`?page=N`) so refresh keeps page
+  - add top + bottom pagination controls
+- Provide polished loading states (animated loader card) on both list and detail pages.
+- On inquiry routes, hide non-admin floating widgets/badges (Zendesk launcher and sticky review/call widgets) unless explicitly requested.
+
+Copy this file into **new brand repos** or merge into global Cursor user rules so **whitewildwolf** keeps the same meaning everywhere.

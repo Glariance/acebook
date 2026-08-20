@@ -1,0 +1,35 @@
+CREATE TABLE `inquiries` (
+	`id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+	`name` VARCHAR(255) NOT NULL DEFAULT '' COLLATE 'utf8mb4_bin',
+	`email` VARCHAR(255) NOT NULL COLLATE 'utf8mb4_bin',
+	`phone` VARCHAR(50) NULL DEFAULT NULL COLLATE 'utf8mb4_bin',
+	`message` TEXT NULL DEFAULT NULL COLLATE 'utf8mb4_bin',
+	`ip_address` VARCHAR(45) NULL DEFAULT NULL COLLATE 'utf8mb4_bin',
+	`country` VARCHAR(100) NULL DEFAULT NULL COLLATE 'utf8mb4_bin',
+	`country_code` VARCHAR(10) NULL DEFAULT NULL COLLATE 'utf8mb4_bin',
+	`region` VARCHAR(150) NULL DEFAULT NULL COLLATE 'utf8mb4_bin',
+	`city` VARCHAR(150) NULL DEFAULT NULL COLLATE 'utf8mb4_bin',
+	`user_agent` VARCHAR(500) NULL DEFAULT NULL COLLATE 'utf8mb4_bin',
+	`referrer_url` VARCHAR(500) NULL DEFAULT NULL COLLATE 'utf8mb4_bin',
+	`landing_page` VARCHAR(500) NULL DEFAULT NULL COLLATE 'utf8mb4_bin',
+	`form_source` VARCHAR(100) NULL DEFAULT NULL COMMENT 'e.g. contact, ghostwriting, book_cover_design, modal_50off, home_quote' COLLATE 'utf8mb4_bin',
+	`isp` VARCHAR(255) NULL DEFAULT NULL COLLATE 'utf8mb4_bin',
+	`org` VARCHAR(255) NULL DEFAULT NULL COLLATE 'utf8mb4_bin',
+	`package_name` VARCHAR(150) NULL DEFAULT NULL COLLATE 'utf8mb4_bin',
+	`lead_amount` DECIMAL(10,2) NULL DEFAULT NULL,
+	`campaign_name` VARCHAR(150) NULL DEFAULT NULL COLLATE 'utf8mb4_bin',
+	`campaign_email` VARCHAR(255) NULL DEFAULT NULL COLLATE 'utf8mb4_bin',
+	`source` VARCHAR(150) NULL DEFAULT NULL COLLATE 'utf8mb4_bin',
+	`campaign_category` VARCHAR(150) NULL DEFAULT NULL COLLATE 'utf8mb4_bin',
+	`campaign_country` VARCHAR(100) NULL DEFAULT NULL COLLATE 'utf8mb4_bin',
+	`campaign_phone` VARCHAR(50) NULL DEFAULT NULL COLLATE 'utf8mb4_bin',
+	`campaign_offer` VARCHAR(150) NULL DEFAULT NULL COLLATE 'utf8mb4_bin',
+	`created_at` DATETIME NULL DEFAULT (now()),
+	PRIMARY KEY (`id`) USING BTREE,
+	INDEX `email` (`email`) USING BTREE,
+	INDEX `form_source` (`form_source`) USING BTREE,
+	INDEX `created_at` (`created_at`) USING BTREE
+)
+COLLATE='utf8mb4_bin'
+ENGINE=InnoDB
+;
