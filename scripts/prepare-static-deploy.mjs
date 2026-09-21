@@ -74,13 +74,18 @@ if (htaccess.includes("RewriteBase ")) {
   htaccess = `<IfModule mod_rewrite.c>
   RewriteEngine On
   RewriteBase ${rewriteBase}
+  RewriteCond %{REQUEST_URI} ^/blog(/|$) [NC,OR]
+  RewriteCond %{REQUEST_URI} ^/api(/|$) [NC,OR]
+  RewriteCond %{REQUEST_URI} ^/includes(/|$) [NC,OR]
+  RewriteCond %{REQUEST_URI} ^/(sendmail|inquiry-details)\\.php$ [NC]
+  RewriteRule ^ - [L]
   RewriteCond %{REQUEST_FILENAME} -f [OR]
   RewriteCond %{REQUEST_FILENAME} -d
   RewriteRule ^ - [L]
-  RewriteRule ^ index.html [L]
+  RewriteRule ^ /index.html [L]
 </IfModule>
 
-DirectoryIndex index.html
+DirectoryIndex index.html index.php
 ` + htaccess;
 }
 

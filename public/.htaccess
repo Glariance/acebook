@@ -1,18 +1,29 @@
-# SPA routing for subdirectory or document-root deploys.
+# SPA routing for document-root deploys.
 # RewriteBase is patched by scripts/prepare-static-deploy.mjs from VITE_BASE.
+# Keep WordPress (/blog) and PHP backends out of the SPA fallback.
 
 <IfModule mod_rewrite.c>
   RewriteEngine On
   RewriteBase /
 
+  # WordPress + PHP backends — never rewrite to the React app
+  RewriteCond %{REQUEST_URI} ^/blog(/|$) [NC,OR]
+  RewriteCond %{REQUEST_URI} ^/api(/|$) [NC,OR]
+  RewriteCond %{REQUEST_URI} ^/includes(/|$) [NC,OR]
+  RewriteCond %{REQUEST_URI} ^/(sendmail|inquiry-details)\.php$ [NC]
+  RewriteRule ^ - [L]
+
+  # Existing files/dirs (assets, etc.)
   RewriteCond %{REQUEST_FILENAME} -f [OR]
   RewriteCond %{REQUEST_FILENAME} -d
   RewriteRule ^ - [L]
 
-  RewriteRule ^ index.html [L]
+  # SPA fallback
+  RewriteRule ^ /index.html [L]
 </IfModule>
 
-DirectoryIndex index.html
+# index.php required so /blog/ can serve WordPress
+DirectoryIndex index.html index.php
 
 <IfModule mod_negotiation.c>
   Options -MultiViews
