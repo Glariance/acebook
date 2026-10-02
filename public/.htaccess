@@ -1,10 +1,20 @@
 # SPA routing for document-root deploys.
 # RewriteBase is patched by scripts/prepare-static-deploy.mjs from VITE_BASE.
 # Keep WordPress (/blog) and PHP backends out of the SPA fallback.
+# Preferred service URLs are WITHOUT trailing slash (canonical).
 
 <IfModule mod_rewrite.c>
   RewriteEngine On
   RewriteBase /
+
+  # Canonical host: https://acebookpublishers.com (force HTTPS + strip www)
+  RewriteCond %{HTTP_HOST} ^www\.acebookpublishers\.com$ [NC]
+  RewriteRule ^ https://acebookpublishers.com%{REQUEST_URI} [R=301,L]
+
+  RewriteCond %{HTTPS} !=on
+  RewriteCond %{HTTP:X-Forwarded-Proto} !https [NC]
+  RewriteCond %{HTTP_HOST} ^acebookpublishers\.com$ [NC]
+  RewriteRule ^ https://acebookpublishers.com%{REQUEST_URI} [R=301,L]
 
   # WordPress + PHP backends — never rewrite to the React app
   RewriteCond %{REQUEST_URI} ^/blog(/|$) [NC,OR]
@@ -12,6 +22,26 @@
   RewriteCond %{REQUEST_URI} ^/includes(/|$) [NC,OR]
   RewriteCond %{REQUEST_URI} ^/(sendmail|inquiry-details)\.php$ [NC]
   RewriteRule ^ - [L]
+
+  # Legacy about/contact
+  RewriteRule ^about/?$ /about-us [R=301,L]
+  RewriteRule ^contact/?$ /contact-us [R=301,L]
+
+  # Old long service slugs → short preferred slugs
+  RewriteRule ^childrens-book-publishing/?$ /childrens-book [R=301,L]
+  RewriteRule ^christian-book-publishing/?$ /christian-book [R=301,L]
+  RewriteRule ^audiobook-book-publishing/?$ /audiobook [R=301,L]
+  RewriteRule ^barnes-publishing/?$ /barnes-and-noble-publishing [R=301,L]
+  RewriteRule ^services/childrens-book-publishing/?$ /childrens-book [R=301,L]
+  RewriteRule ^services/christian-book-publishing/?$ /christian-book [R=301,L]
+  RewriteRule ^services/audiobook-book-publishing/?$ /audiobook [R=301,L]
+  RewriteRule ^services/barnes-publishing/?$ /barnes-and-noble-publishing [R=301,L]
+
+  # Legacy /services/:slug → /:slug
+  RewriteRule ^services/(book-publishing|kdp-publishing|apple-book-publishing|barnes-and-noble-publishing|kobo-book-publishing|book-marketing|book-editing|ghostwriting|book-cover-design|childrens-book|christian-book|audiobook)/?$ /$1 [R=301,L]
+
+  # Trailing-slash service URLs → preferred non-trailing (301)
+  RewriteRule ^(book-publishing|kdp-publishing|apple-book-publishing|barnes-and-noble-publishing|kobo-book-publishing|book-marketing|book-editing|ghostwriting|book-cover-design|childrens-book|christian-book|audiobook)/$ /$1 [R=301,L]
 
   # Existing files/dirs (assets, etc.)
   RewriteCond %{REQUEST_FILENAME} -f [OR]

@@ -74,17 +74,24 @@ export default function Footer() {
           <ul className="mt-5 space-y-3 text-sm">
             {[
               { to: "/", label: "Home" },
-              { to: "/about", label: "About" },
+              { to: "/about-us", label: "About" },
               { to: "/services", label: "Services" },
               { to: "/portfolio", label: "Portfolio" },
               { to: "/testimonials", label: "Testimonials" },
-              { to: "/contact", label: "Contact Us" },
+              { to: "/blog/", label: "Blog", external: true },
+              { to: "/contact-us", label: "Contact Us" },
             ].map((l) => (
               <li key={l.to} className="flex items-center gap-2">
                 <span className="h-1.5 w-1.5 rounded-full bg-brand" />
-                <Link to={l.to} className="hover:text-brand">
-                  {l.label}
-                </Link>
+                {"external" in l && l.external ? (
+                  <a href={l.to} className="hover:text-brand">
+                    {l.label}
+                  </a>
+                ) : (
+                  <Link to={l.to} className="hover:text-brand">
+                    {l.label}
+                  </Link>
+                )}
               </li>
             ))}
           </ul>

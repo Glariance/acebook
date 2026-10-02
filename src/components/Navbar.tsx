@@ -11,11 +11,18 @@ const SCROLL_THRESHOLD = 48;
 
 const links = [
   { to: "/", label: "Home" },
-  { to: "/about", label: "About" },
+  { to: "/about-us", label: "About" },
   { to: "/portfolio", label: "Portfolio" },
   { to: "/testimonials", label: "Testimonials" },
-  { to: "/contact", label: "Contact Us" },
+  { to: "/blog/", label: "Blog", external: true },
+  { to: "/contact-us", label: "Contact Us" },
 ] as const;
+
+type NavLink = (typeof links)[number];
+
+function isExternalLink(link: NavLink): link is NavLink & { external: true } {
+  return "external" in link && link.external === true;
+}
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
@@ -95,13 +102,15 @@ export default function Navbar() {
               {links.slice(2).map((l) => (
                 <div key={l.to} className="flex items-center">
                   <span className={dividerClass}>|</span>
-                  <Link
-                    to={l.to}
-                    className={navLinkClass}
-                    activeOptions={{ exact: false }}
-                  >
-                    {l.label}
-                  </Link>
+                  {isExternalLink(l) ? (
+                    <a href={l.to} className={navLinkClass}>
+                      {l.label}
+                    </a>
+                  ) : (
+                    <Link to={l.to} className={navLinkClass} activeOptions={{ exact: false }}>
+                      {l.label}
+                    </Link>
+                  )}
                 </div>
               ))}
             </nav>
@@ -141,13 +150,23 @@ export default function Navbar() {
                 <ServicesMegaMenuMobile open scrolled={scrolled} onNavigate={() => setOpen(false)} />
                 {links.slice(2).map((l) => (
                   <li key={l.to}>
-                    <Link
-                      to={l.to}
-                      onClick={() => setOpen(false)}
-                      className="block py-2 text-sm font-medium text-ink hover:text-brand"
-                    >
-                      {l.label}
-                    </Link>
+                    {isExternalLink(l) ? (
+                      <a
+                        href={l.to}
+                        onClick={() => setOpen(false)}
+                        className="block py-2 text-sm font-medium text-ink hover:text-brand"
+                      >
+                        {l.label}
+                      </a>
+                    ) : (
+                      <Link
+                        to={l.to}
+                        onClick={() => setOpen(false)}
+                        className="block py-2 text-sm font-medium text-ink hover:text-brand"
+                      >
+                        {l.label}
+                      </Link>
+                    )}
                   </li>
                 ))}
                 <li>

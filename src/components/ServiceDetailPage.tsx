@@ -72,7 +72,7 @@ function CtaBannerButtons() {
   return (
     <div className="mt-5 flex flex-wrap gap-3">
       <Link
-        to="/contact"
+        to="/contact-us"
         className="inline-flex items-center gap-2.5 rounded-lg bg-white py-1.5 pl-5 pr-1.5 text-sm font-semibold text-ink transition hover:-translate-y-0.5 hover:bg-cream"
       >
         Contact Us
@@ -159,7 +159,7 @@ function ServiceFaqSection({
             </div>
             <h3 className="mt-5 text-lg font-bold">Do You Have More Questions?</h3>
             <p className="body-copy mt-3 text-sm">{faqAsideText}</p>
-            <Link to="/contact" className="btn-primary mt-6 w-full justify-center">
+            <Link to="/contact-us" className="btn-primary mt-6 w-full justify-center">
               Shoot a Direct Mail <ArrowUpRight className="h-4 w-4" />
             </Link>
           </aside>

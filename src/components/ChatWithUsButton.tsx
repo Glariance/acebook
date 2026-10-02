@@ -1,6 +1,5 @@
-import type { ReactNode } from "react";
+import type { MouseEvent, ReactNode } from "react";
 import { MessageSquare, ArrowUpRight } from "lucide-react";
-import { SITE_PHONE_DISPLAY } from "@/constants/contact";
 import { openZendeskChat } from "@/lib/zendesk";
 import { cn } from "@/lib/utils";
 
@@ -19,12 +18,18 @@ export default function ChatWithUsButton({
   showArrow = true,
   "aria-label": ariaLabel,
 }: ChatWithUsButtonProps) {
+  const handleClick = (e: MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    e.stopPropagation();
+    openZendeskChat();
+  };
+
   return (
     <button
       type="button"
       className={cn(className)}
-      onClick={() => openZendeskChat()}
-      aria-label={ariaLabel ?? `Open live chat (${SITE_PHONE_DISPLAY} if chat is unavailable)`}
+      onClick={handleClick}
+      aria-label={ariaLabel ?? "Open live chat"}
     >
       {showIcon ? <MessageSquare className="h-4 w-4" /> : null}
       {children ?? "Chat With Us"}

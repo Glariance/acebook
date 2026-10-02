@@ -13,7 +13,7 @@ export default function CtaBanner() {
             <div>
               <p className="text-sm text-white/90">Start Your Journey to Becoming a Best-Selling Author Today!</p>
               <div className="mt-5 flex flex-wrap gap-3">
-                <Link to="/contact" className="btn-white">Contact Us <ArrowUpRight className="h-4 w-4" /></Link>
+                <Link to="/contact-us" className="btn-white">Contact Us <ArrowUpRight className="h-4 w-4" /></Link>
                 <ChatWithUsButton className="btn-white" />
               </div>
             </div>

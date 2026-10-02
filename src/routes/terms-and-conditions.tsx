@@ -137,7 +137,7 @@ function TermsAndConditionsPage() {
             {phoneDisplay}
           </a>
           , or via our{" "}
-          <Link to="/contact" className="text-brand hover:underline">
+          <Link to="/contact-us" className="text-brand hover:underline">
             Contact
           </Link>{" "}
           page.

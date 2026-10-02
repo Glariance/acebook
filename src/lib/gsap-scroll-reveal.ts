@@ -1,13 +1,13 @@
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
+/** Fade/slide in once when the element enters the viewport; stay visible. */
 const REVEAL_TRIGGER = {
-  start: "top 85%",
-  end: "bottom 15%",
-  toggleActions: "play reverse play reverse",
+  start: "top 88%",
+  toggleActions: "play none none none",
+  once: true,
 } as const;
 
-/** Slide in on enter, slide out when the section leaves the viewport. */
 export function initScrollReveal(scope?: ParentNode | null) {
   if (typeof window === "undefined") return;
 
@@ -23,6 +23,7 @@ export function initScrollReveal(scope?: ParentNode | null) {
         autoAlpha: 1,
         duration: 0.8,
         ease: "power3.out",
+        immediateRender: false,
         scrollTrigger: {
           trigger: el,
           ...REVEAL_TRIGGER,
@@ -41,6 +42,7 @@ export function initScrollReveal(scope?: ParentNode | null) {
         duration: 0.7,
         ease: "power3.out",
         stagger: 0.08,
+        immediateRender: false,
         scrollTrigger: {
           trigger: wrap,
           ...REVEAL_TRIGGER,

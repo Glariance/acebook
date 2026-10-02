@@ -117,10 +117,21 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         { charSet: "utf-8" },
         { name: "viewport", content: "width=device-width, initial-scale=1" },
         { httpEquiv: "Permissions-Policy", content: "unload=*" },
-        { title: "Ace Book Publishers — Trusted Self-Publishing Platform for Authors" },
-        { name: "description", content: "Ace Book Publishers helps authors write, publish, market, and design books that reach global audiences." },
-        { property: "og:title", content: "Ace Book Publishers" },
-        { property: "og:description", content: "Trusted self-publishing platform for authors." },
+        { title: "Publish Your Book & Book Marketing Services | Ace Book Publishers" },
+        {
+          name: "description",
+          content:
+            "Publish and promote your book with Ace Book Publishers. Get professional Book Publishing and Book Marketing services, from editing and design to launch.",
+        },
+        {
+          property: "og:title",
+          content: "Publish Your Book & Book Marketing Services | Ace Book Publishers",
+        },
+        {
+          property: "og:description",
+          content:
+            "Publish and promote your book with Ace Book Publishers. Get professional Book Publishing and Book Marketing services, from editing and design to launch.",
+        },
         { property: "og:type", content: "website" },
         { name: "twitter:card", content: "summary_large_image" },
       ],

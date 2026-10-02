@@ -20,10 +20,17 @@ export function tryOpenZendeskWidget(api: ZeApi): boolean {
   const candidates: Array<() => void> = [
     () => {
       (api as ZeApi)("messenger", "render");
+      (api as ZeApi)("messenger", "show");
       (api as ZeApi)("messenger", "open");
     },
+    () => {
+      (api as ZeApi)("messenger", "open");
+    },
+    () => {
+      (api as ZeApi)("webWidget", "show");
+      (api as ZeApi)("webWidget", "open");
+    },
     () => (api as ZeApi)("webWidget", "open"),
-    () => (api as ZeApi)("messenger", "open"),
     () => api.activate?.(),
     () => api.show?.(),
   ];
@@ -53,24 +60,80 @@ function runWhenZeReady(run: (api: ZeApi) => void): boolean {
   }
 }
 
-function openWithZeOrFallback(onFail: () => void): void {
-  if (!runWhenZeReady((api) => {
-    if (!tryOpenZendeskWidget(api)) onFail();
-  })) {
-    onFail();
-  }
+function attemptOpenZendeskWidget(): boolean {
+  return runWhenZeReady((api) => {
+    tryOpenZendeskWidget(api);
+  });
 }
 
+/** Click the Zendesk launcher button in the DOM if the API open call is a no-op. */
+function clickZendeskLauncher(): boolean {
+  const selectors = [
+    "#launcher",
+    "iframe#launcher",
+    "button[data-testid='launcher']",
+    "[data-garden-id='buttons.icon_button']",
+    "div[role='presentation'] iframe",
+  ];
+  for (const sel of selectors) {
+    const el = document.querySelector(sel);
+    if (!el) continue;
+    if (el instanceof HTMLIFrameElement) {
+      try {
+        el.contentDocument?.querySelector("button")?.click();
+        return true;
+      } catch {
+        /* cross-origin iframe — click the frame itself */
+        el.click();
+        return true;
+      }
+    }
+    if (el instanceof HTMLElement) {
+      el.click();
+      return true;
+    }
+  }
+  // Zendesk classic launcher iframe title
+  const frames = document.querySelectorAll("iframe");
+  for (const frame of frames) {
+    const title = (frame.getAttribute("title") || "").toLowerCase();
+    const name = (frame.getAttribute("name") || "").toLowerCase();
+    if (title.includes("messaging") || title.includes("launcher") || name.includes("launcher")) {
+      frame.click();
+      return true;
+    }
+  }
+  return false;
+}
+
+/**
+ * Open Zendesk chat on demand. Retries until the messenger opens;
+ * falls back to phone only if the snippet fails to load.
+ */
 export function openZendeskChat(): void {
+  const tryOpen = () => {
+    attemptOpenZendeskWidget();
+    window.setTimeout(() => clickZendeskLauncher(), 100);
+  };
+
   if (isZendeskSnippetReady() && typeof (window as ZeWindow).zE === "function") {
-    openWithZeOrFallback(openZendeskFallback);
+    tryOpen();
+    scheduleZendeskAutoOpen({ intervalMs: 100, maxAttempts: 40, force: true });
     return;
   }
+
   void loadZendeskScript()
     .then(() => {
-      scheduleZendeskAutoOpen({ intervalMs: 80, maxAttempts: 120, force: true });
+      tryOpen();
+      scheduleZendeskAutoOpen({ intervalMs: 80, maxAttempts: 100, force: true });
+      const delays = [200, 500, 1000, 2000];
+      for (const delay of delays) {
+        window.setTimeout(tryOpen, delay);
+      }
     })
-    .catch(() => openZendeskFallback());
+    .catch(() => {
+      if (!clickZendeskLauncher()) openZendeskFallback();
+    });
 }
 
 export function syncZendeskPageContext(overrides?: { title?: string; url?: string }): void {
@@ -100,12 +163,6 @@ export function shouldAutoOpenZendeskWidget(pathname: string): boolean {
 }
 
 let zendeskAutoOpenIntervalId: number | null = null;
-
-function attemptOpenZendeskWidget(): boolean {
-  return runWhenZeReady((api) => {
-    tryOpenZendeskWidget(api);
-  });
-}
 
 /**
  * Force-opens Zendesk once the snippet is ready. Polls until open is attempted.

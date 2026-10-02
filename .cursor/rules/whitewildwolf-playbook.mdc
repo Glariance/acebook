@@ -7,17 +7,6 @@ alwaysApply: false
 
 When the user message contains **whitewildwolf** (any case), treat it as a request to apply this **multi-brand publishing / services site** checklist unless they narrow scope.
 
-## Forms & backend
-
-- Contact / quote forms POST to a **same-origin PHP** endpoint (e.g. `sendmail.php` / `api/sendmail.php`); fix `__DIR__` / includes for both entry paths.
-- **Validation**, spam basics (honeypot / rate limit if present), clear JSON or redirect responses.
-- Production **env** for API base path; avoid full URL in `VITE_BASE`.
-
-## Email
-
-- **HTML + plain-text** parts; readable from mobile clients; brand name, reply-to, subject lines per form type.
-- Central mail config; handle errors without leaking internals to the client.
-
 ## Zendesk / chat
 
 - Load snippet **after window load + idle** (or interaction-only if PageSpeed is the priority).

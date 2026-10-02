@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useRouterState } from "@tanstack/react-router";
 import { buildDocumentTitle, normalizeRoutePathname } from "@/lib/routePageTitle";
 import { buildCanonicalHref, buildMetaDescription, buildOpenGraphTags, buildRobotsContent } from "@/lib/routeMeta";
-import { shouldAutoOpenZendeskWidget, syncZendeskPageContext, forceZendeskPopupBurst } from "@/lib/zendesk";
+import { forceZendeskPopupBurst, shouldAutoOpenZendeskWidget, syncZendeskPageContext } from "@/lib/zendesk";
 
 function upsertMetaName(name: string, content: string) {
   let el = document.querySelector(`meta[name="${name}"]`) as HTMLMetaElement | null;

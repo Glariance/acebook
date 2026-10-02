@@ -22,23 +22,24 @@ import HeroQuickForm from "@/components/HeroQuickForm";
 import { collectInquiryFormErrors, formDataFromEvent } from "@/lib/form-fields";
 import { useInquirySubmit } from "@/hooks/useInquirySubmit";
 import { showFormErrorToast } from "@/lib/form-toast";
+import { buildCanonicalHref } from "@/lib/routeMeta";
 
 export const Route = createFileRoute("/")({
-  head: () => ({
-    meta: [
-      { title: "Ace Book Publishers — Book Marketing & Publishing Services" },
-      {
-        name: "description",
-        content:
-          "Ace Book Publishers specializes in turning ideas into bestsellers with book marketing Amazon services, publishing, editing, and professional ebook writers.",
-      },
-      { property: "og:title", content: "Ace Book Publishers" },
-      {
-        property: "og:description",
-        content: "We empower aspiring authors with book marketing and publishing services.",
-      },
-    ],
-  }),
+  head: () => {
+    const title = "Publish Your Book & Book Marketing Services | Ace Book Publishers";
+    const description =
+      "Publish and promote your book with Ace Book Publishers. Get professional Book Publishing and Book Marketing services, from editing and design to launch.";
+    return {
+      meta: [
+        { title },
+        { name: "description", content: description },
+        { property: "og:title", content: title },
+        { property: "og:description", content: description },
+        { property: "og:url", content: buildCanonicalHref("/") },
+      ],
+      links: [{ rel: "canonical", href: buildCanonicalHref("/") }],
+    };
+  },
   component: Home,
 });
 
@@ -121,6 +122,8 @@ function Home() {
           <img
             src={heroBg}
             alt=""
+            width={1920}
+            height={1030}
             className="absolute inset-0 h-full w-full object-cover"
             fetchPriority="high"
             decoding="async"
@@ -240,7 +243,7 @@ function Home() {
             Protect your story with our trusted publishing team.
           </p>
           <div data-reveal className="mt-6 flex flex-wrap justify-center gap-3">
-            <Link to="/contact" className="btn-primary">Contact Us <ArrowUpRight className="h-4 w-4" /></Link>
+            <Link to="/contact-us" className="btn-primary">Contact Us <ArrowUpRight className="h-4 w-4" /></Link>
             <ChatWithUsButton />
           </div>
         </div>
@@ -287,7 +290,7 @@ function Home() {
             </p>
             <div className="mt-6 flex flex-wrap gap-3">
               <GetStartedButton />
-              <Link to="/about" className="btn-outline">Discover More <ArrowUpRight className="h-4 w-4" /></Link>
+              <Link to="/about-us" className="btn-outline">Discover More <ArrowUpRight className="h-4 w-4" /></Link>
             </div>
           </div>
         </div>
@@ -379,7 +382,7 @@ function Home() {
               ))}
             </ul>
             <div className="mt-5 flex flex-wrap gap-3">
-              <Link to="/contact" className="btn-primary">Contact Us <ArrowUpRight className="h-4 w-4" /></Link>
+              <Link to="/contact-us" className="btn-primary">Contact Us <ArrowUpRight className="h-4 w-4" /></Link>
               <ChatWithUsButton />
             </div>
           </div>

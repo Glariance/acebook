@@ -812,7 +812,7 @@ const serviceDetailContent: Record<ServiceSlug, ServiceDetailContent> = {
       "If you have more questions about our Apple Book publishing services, packages, or timelines, our team is ready to help you every step of the way.",
   },
 
-  "barnes-publishing": {
+  "barnes-and-noble-publishing": {
     label: "Barnes Publishing",
     intro: {
       headingLines: ["Trusted Barnes and Noble Book Publishing"],
@@ -1718,7 +1718,7 @@ const serviceDetailContent: Record<ServiceSlug, ServiceDetailContent> = {
       "If you have more questions about our book cover design process, revisions, or file delivery, our team is ready to help.",
   },
 
-  "childrens-book-publishing": {
+  "childrens-book": {
     label: "Children's Book Publishing",
     intro: {
       headingLines: ["Choose The Best Children's Book Publishers"],
@@ -1902,7 +1902,7 @@ const serviceDetailContent: Record<ServiceSlug, ServiceDetailContent> = {
       "If you have more questions about children's book publishing, illustrations, or timelines, our team is here to help.",
   },
 
-  "christian-book-publishing": {
+  "christian-book": {
     label: "Christian Book Publishing",
     intro: {
       headingLines: ["Top Christian Book Publishers In Town!"],
@@ -2084,7 +2084,7 @@ const serviceDetailContent: Record<ServiceSlug, ServiceDetailContent> = {
       "If you have more questions about Christian book publishing or how we can support your project, reach out anytime.",
   },
 
-  "audiobook-book-publishing": {
+  "audiobook": {
     label: "Audiobook Book Publishing",
     intro: {
       headingLines: ["Reboot Your Book in Audio"],
@@ -2250,27 +2250,27 @@ export function getServiceDetailContent(slug: ServiceSlug): ServiceDetailContent
 
 export const serviceMetaDescriptions: Record<ServiceSlug, string> = {
   ghostwriting:
-    "Best ghostwriting services — fiction, non-fiction, memoirs, children's books, and collaborative book writing with full ownership rights.",
+    "Have a book idea? Get the Best Ghostwriting Services and Hire a Ghostwriter to turn your ideas into a polished manuscript while preserving your voice.",
   "book-publishing":
-    "Become a famous author by self publishing on Amazon — editing, cover design, formatting, multi-platform publishing, and paperback distribution.",
+    "Ready to publish your book? Get professional book publishing services and expert guidance to self publish a book from manuscript to publication.",
   "kdp-publishing":
-    "Simplify your Amazon KDP publishing journey with editing, formatting, cover design, marketing, and expert Kindle Direct Publishing support.",
+    "Publish your book on Amazon with professional KDP Book Publishing services. Get expert guidance through Amazon Kindle Direct Publishing from start to launch.",
   "apple-book-publishing":
-    "Apple Book publishing services for self-published authors — proofreading, formatting, cover design, multi-platform publishing, and full royalties.",
-  "barnes-publishing":
-    "Get proficient Barnes and Noble ebook publishing services — editing, formatting, proofreading, cover design, and multi-platform distribution.",
+    "Apple Book publishing for self-published authors including editing, formatting, cover design, multi-platform distribution, and royalties support.",
+  "barnes-and-noble-publishing":
+    "Barnes and Noble ebook publishing services including editing, formatting, proofreading, cover design, multi-platform distribution, and royalties support.",
   "kobo-book-publishing":
-    "All-inclusive Kobo book publishing services — formatting, cover design, Kobo account setup, digital and print distribution, and marketing support.",
+    "Kobo book publishing services including formatting, cover design, Kobo account setup, digital and print formats, and marketing support.",
   "book-marketing":
-    "Boost book sales with top book marketing services — Amazon marketing, social media promotion, SEO, author websites, and custom campaigns.",
+    "Ready to reach more readers? Get professional Book Marketing Services from a book marketing agency with strategies designed to promote your book effectively.",
   "book-editing":
-    "Hire top book editors in the USA — copy editing, line editing, proofreading, Amazon book editing, and manuscript formatting.",
+    "Polish your manuscript with professional book editors. Get Best Book Editing Services for clear, engaging, publication-ready writing that reflects your voice.",
   "book-cover-design":
-    "Creative book cover design services — unique genre-focused covers, hardboard and paperback designs, and print-ready files for authors.",
-  "childrens-book-publishing":
-    "Best children's book publishers — storytelling, illustrations, formatting, Amazon publishing, and marketing for kids' books.",
-  "christian-book-publishing":
-    "Top Christian book publishers — faith-based publishing, Christian children's books, editing, illustration, and marketing support.",
-  "audiobook-book-publishing":
-    "Professional audiobook narration, studio production and distribution across major listening platforms.",
+    "Make your book stand out with professional book cover design services. Get a Custom Book Cover created to match your story, genre, audience, and vision.",
+  "childrens-book":
+    "Have a children's book idea? Get professional children's book services and expert publishing support from the Best Children's Book Publishers.",
+  "christian-book":
+    "Looking for Top Christian Book Publishers? Choose a Christian Book Publishing Company for professional support with editing, design, publishing, and marketing.",
+  "audiobook":
+    "Expand your book into audio with professional audiobook publishing services. An experienced Audiobook Publisher can guide you through production and publication.",
 };

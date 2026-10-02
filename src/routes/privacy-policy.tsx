@@ -134,7 +134,7 @@ function PrivacyPolicyPage() {
             {phoneDisplay}
           </a>
           , or through our{" "}
-          <Link to="/contact" className="text-brand hover:underline">
+          <Link to="/contact-us" className="text-brand hover:underline">
             Contact
           </Link>{" "}
           page.

@@ -4,7 +4,6 @@ import { loadZendeskScript } from "@/lib/loadZendeskScript";
 import {
   enableZendeskUnreadAutoOpen,
   forceZendeskPopupBurst,
-  scheduleZendeskAutoOpen,
   syncZendeskPageContext,
 } from "@/lib/zendesk";
 
@@ -117,9 +116,11 @@ function afterZendeskReady() {
   renderZendeskMessenger();
   syncZendeskPageContext();
   enableZendeskUnreadAutoOpen();
+  // Client wants chat open ASAP on site load
   forceZendeskPopupBurst();
 }
 
+/** Load Zendesk immediately and auto-open the messenger popup. */
 function bootZendesk() {
   configureBeforeSnippet();
   ensureZeStub();
@@ -129,7 +130,7 @@ function bootZendesk() {
       afterZendeskReady();
     })
     .catch(() => {
-      /* Chat buttons fall back to phone via openZendeskChat */
+      /* Chat With Us can still retry via openZendeskChat */
     });
 }
 

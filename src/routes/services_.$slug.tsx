@@ -1,41 +1,17 @@
-import { createFileRoute, notFound } from "@tanstack/react-router";
-import ServiceDetailPage from "@/components/ServiceDetailPage";
-import { getServiceDetailContent, serviceMetaDescriptions } from "@/data/service-detail-content";
-import {
-  serviceMenuLinks,
-  type ServiceSlug,
-} from "@/data/services-menu";
+import { createFileRoute, redirect } from "@tanstack/react-router";
+import { resolveServiceSlug } from "@/data/services-menu";
 
+/** Legacy /services/:slug → /:slug (including old long slugs). */
 export const Route = createFileRoute("/services_/$slug")({
   beforeLoad: ({ params }) => {
-    const service = serviceMenuLinks.find((s) => s.slug === params.slug);
-    if (!service) throw notFound();
+    const serviceSlug = resolveServiceSlug(params.slug);
+    if (!serviceSlug) {
+      throw redirect({ to: "/services" });
+    }
+    throw redirect({
+      to: "/$slug",
+      params: { slug: serviceSlug },
+      replace: true,
+    });
   },
-  head: ({ params }) => {
-    const service = serviceMenuLinks.find((s) => s.slug === params.slug);
-    const title = service?.label ?? "Service";
-    const slug = params.slug as ServiceSlug;
-    return {
-      meta: [
-        { title: `${title} — Ace Book Publishers` },
-        {
-          name: "description",
-          content: serviceMetaDescriptions[slug] ?? `${title} from Ace Book Publishers.`,
-        },
-        { property: "og:title", content: `${title} — Ace Book Publishers` },
-        {
-          property: "og:description",
-          content: serviceMetaDescriptions[slug] ?? `${title} from Ace Book Publishers.`,
-        },
-      ],
-    };
-  },
-  component: ServiceDetail,
 });
-
-function ServiceDetail() {
-  const { slug } = Route.useParams();
-  const content = getServiceDetailContent(slug as ServiceSlug);
-
-  return <ServiceDetailPage content={content} />;
-}

@@ -50,7 +50,7 @@ export default function LegalPageShell({
           <div className="mt-8 rounded-2xl bg-white p-6 shadow-sm ring-1 ring-border/40 md:p-10">{children}</div>
           <p className="mt-8 text-center text-sm text-muted-foreground">
             Questions?{" "}
-            <Link to="/contact" className="font-semibold text-brand hover:underline">
+            <Link to="/contact-us" className="font-semibold text-brand hover:underline">
               Contact us
             </Link>{" "}
             or email{" "}
