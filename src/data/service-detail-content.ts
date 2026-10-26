@@ -28,13 +28,13 @@ import {
 import type { LucideIcon } from "lucide-react";
 import type { ServiceDetailContent } from "@/components/ServiceDetailPage";
 import type { ServiceSlug } from "@/data/services-menu";
-import ghostwritingAboutImg from "@/assets/Ace Book Publishers Is A Top Ghostwriting Company Committed to Your Success.png";
-import maximizeInfluenceImg from "@/assets/Maximize Your Influence with Our Professional Book Writing Services.png";
-import penDownImg from "@/assets/Pen down Your Thoughts With Ace Book Publishers.png";
-import bookMarketingImg from "@/assets/book marketing.png";
-import bookCoverImg from "@/assets/book cover design.png";
-import audiobookImg from "@/assets/audiobook.png";
-import pictureBooksImg from "@/assets/Picture Books.png";
+import ghostwritingAboutImg from "@/assets/ghostwriting-about.jpg";
+import maximizeInfluenceImg from "@/assets/maximize-influence-deco.png";
+import penDownImg from "@/assets/pen-down-thoughts.jpg";
+import bookMarketingImg from "@/assets/book-marketing.jpg";
+import bookCoverImg from "@/assets/book-cover-design.jpg";
+import audiobookImg from "@/assets/audiobook.jpg";
+import pictureBooksImg from "@/assets/picture-books.jpg";
 import writerPortrait from "@/assets/writer-portrait.jpg";
 
 type Step = ServiceDetailContent["procedureSteps"][number];

@@ -1,11 +1,11 @@
 import { useCallback, useEffect, useState } from "react";
 import useEmblaCarousel from "embla-carousel-react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import book1 from "@/assets/1.png";
-import book2 from "@/assets/2.png";
-import book3 from "@/assets/3.png";
-import book4 from "@/assets/4.png";
-import book5 from "@/assets/5.png";
+import book1 from "@/assets/1.jpg";
+import book2 from "@/assets/2.jpg";
+import book3 from "@/assets/3.jpg";
+import book4 from "@/assets/4.jpg";
+import book5 from "@/assets/5.jpg";
 
 const books = [
   { src: book1, alt: "Trauma book cover" },
@@ -43,26 +43,31 @@ export default function HeroBookSlider() {
 
   useEffect(() => {
     if (!emblaApi) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const interval = window.setInterval(() => {
       emblaApi.scrollNext();
-    }, 3500);
+    }, 4500);
     return () => window.clearInterval(interval);
   }, [emblaApi]);
 
   return (
-    <div data-hero-stagger className="mt-8 flex w-fit max-w-full items-center gap-2 md:mt-10">
-      <div className="min-w-0 overflow-hidden" ref={emblaRef}>
-        <div className="flex touch-pan-y gap-2.5">
-          {books.map((book) => (
+    <div data-hero-stagger className="mt-6 flex w-full max-w-full items-center gap-2 sm:mt-8 md:mt-10">
+      <div className="min-w-0 flex-1 overflow-hidden" ref={emblaRef}>
+        <div className="flex touch-pan-y gap-2 sm:gap-2.5">
+          {books.map((book, index) => (
             <div
               key={book.alt}
-              className="w-[5.25rem] shrink-0 sm:w-[6rem] md:w-[7rem] lg:w-[7.75rem]"
+              className="w-[4.5rem] shrink-0 sm:w-[6rem] md:w-[7rem] lg:w-[7.75rem]"
             >
               <img
                 src={book.src}
                 alt={book.alt}
+                width={124}
+                height={165}
+                decoding="async"
                 className="aspect-[3/4] w-full rounded-sm object-cover object-center shadow-md ring-1 ring-white/10"
-                loading="lazy"
+                loading={index < 2 ? "eager" : "lazy"}
+                fetchPriority={index === 0 ? "low" : undefined}
               />
             </div>
           ))}

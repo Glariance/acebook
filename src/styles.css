@@ -1,7 +1,7 @@
 @import "tailwindcss" source(none);
 @source "../src";
 @import "tw-animate-css";
-@import "sweetalert2/dist/sweetalert2.min.css";
+/* sweetalert2 CSS is loaded on demand from form-toast.ts to keep critical CSS smaller */
 
 @custom-variant dark (&:is(.dark *));
 
@@ -82,12 +82,24 @@
 
 @layer base {
   * { border-color: var(--color-border); }
-  html { scroll-behavior: smooth; }
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+  }
   body {
     background-color: var(--color-background);
     color: var(--color-foreground);
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
+    overflow-x: clip;
+  }
+  img, video, canvas, svg {
+    max-width: 100%;
+    height: auto;
   }
   h1, h2, h3, h4, h5, h6 { font-family: var(--font-display); font-weight: 700; letter-spacing: -0.01em; }
 }
@@ -169,17 +181,24 @@
   }
 }
 @utility section-eyebrow {
-  font-size: 0.875rem;
+  font-size: 0.7rem;
   font-weight: 600;
-  letter-spacing: 0.32em;
+  letter-spacing: 0.18em;
   color: var(--brand);
   text-transform: uppercase;
+  @media (width >= 40rem) {
+    font-size: 0.875rem;
+    letter-spacing: 0.32em;
+  }
 }
 @utility section-title {
-  font-size: 2.25rem;
+  font-size: 1.75rem;
   font-weight: 800;
   letter-spacing: -0.01em;
   line-height: 1.15;
+  @media (width >= 40rem) {
+    font-size: 2.25rem;
+  }
   @media (width >= 48rem) {
     font-size: 3rem;
   }
@@ -261,7 +280,26 @@
 
 [data-deco-circle] {
   transform-origin: 50% 50%;
-  will-change: transform, opacity;
+  /* Keep decorative circles soft so they never overpower content */
+  opacity: 0.28 !important;
+}
+@media (max-width: 767px) {
+  /* Hide large deco circles on small screens — they collide with CTAs/text */
+  [data-deco-circle] {
+    display: none !important;
+  }
+}
+@media (min-width: 768px) {
+  [data-deco-circle] {
+    will-change: transform, opacity;
+  }
+}
+
+/* Space for mobile sticky call CTA */
+@media (max-width: 639px) {
+  body {
+    padding-bottom: 4.5rem;
+  }
 }
 
 .form-toast {

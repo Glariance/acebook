@@ -80,7 +80,14 @@ export default function Navbar() {
             }
           >
             <Link to="/" className="flex shrink-0 items-center">
-              <img src={logo} alt="Ace Book Publishers" className="h-10 w-auto sm:h-11" />
+              <img
+                src={logo}
+                alt="Ace Book Publishers"
+                width={160}
+                height={44}
+                className="h-9 w-auto sm:h-11"
+                decoding="async"
+              />
             </Link>
             <nav className="hidden items-center gap-1 md:flex">
               {links.slice(0, 2).map((l, i) => (

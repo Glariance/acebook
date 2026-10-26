@@ -12,7 +12,7 @@ import CtaBanner from "@/components/CtaBanner";
 import Testimonials from "@/components/Testimonials";
 import GetStartedButton from "@/components/GetStartedButton";
 import DecoCircle from "@/components/DecoCircle";
-import aboutVoiceImage from "@/assets/Your Voice-Our Words Your Ideas Can Be Your Next Bestseller!.png";
+import aboutVoiceImage from "@/assets/about-voice.jpg";
 
 export const Route = createFileRoute("/about-us")({
   head: () => ({
@@ -91,8 +91,8 @@ function About() {
 
       {/* Stats */}
       <section className="relative overflow-hidden bg-cream-deep py-20">
-        <DecoCircle variant="solid" className="absolute -left-16 bottom-0 h-56 w-56 rounded-full bg-brand opacity-90" />
-        <DecoCircle variant="ring" className="absolute -right-12 top-10 h-48 w-48 rounded-full border-[20px] border-brand opacity-70" />
+        <DecoCircle variant="solid" className="absolute -left-16 bottom-0 hidden h-56 w-56 rounded-full bg-brand opacity-30 md:block" />
+        <DecoCircle variant="ring" className="absolute -right-12 top-10 hidden h-48 w-48 rounded-full border-[20px] border-brand opacity-30 md:block" />
         <div className="relative mx-auto max-w-6xl px-4 sm:px-6">
           <div className="grid gap-6 md:grid-cols-2">
             <div data-reveal>

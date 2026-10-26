@@ -10,6 +10,11 @@ export default function DecoCirclesAnimator() {
   useEffect(() => {
     if (!mounted) return;
 
+    // Skip continuous GSAP motion on small screens / reduced-motion (PageSpeed + battery)
+    const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const isNarrow = window.matchMedia("(max-width: 767px)").matches;
+    if (prefersReduced || isNarrow) return;
+
     let cleanup = () => {};
     let cancelled = false;
     let frameId = 0;

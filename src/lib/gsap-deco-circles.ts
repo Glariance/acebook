@@ -57,7 +57,7 @@ export function initDecoCircleAnimations(scope?: ParentNode | null) {
       } else if (variant === "glow") {
         gsap.to(el, {
           scale: isBanner ? 1.45 : 1.35,
-          opacity: isBanner ? 0.65 : 0.5,
+          opacity: isBanner ? 0.32 : 0.24,
           duration: 3.5 + (seed % 4),
           ease: "sine.inOut",
           repeat: -1,

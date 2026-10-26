@@ -1,30 +1,32 @@
 import { Link } from "@tanstack/react-router";
 import { ArrowUpRight } from "lucide-react";
-import servicesBg from "@/assets/nfadlsf.png";
-import servicesDeco from "@/assets/bdgnaufw.png";
+import servicesBg from "@/assets/nfadlsf.jpg";
+import servicesDeco from "@/assets/bdgnaufw-deco.png";
 import ServicesAccordion from "@/components/ServicesAccordion";
 
 export default function ServicesSection() {
   return (
-    <section className="relative overflow-hidden py-20">
+    <section className="relative overflow-hidden py-14 sm:py-20">
       <img
         src={servicesBg}
         alt=""
         aria-hidden
-        className="pointer-events-none absolute inset-0 h-full w-full object-cover object-center"
+        className="pointer-events-none absolute inset-0 hidden h-full w-full object-cover object-center md:block"
         loading="lazy"
+        decoding="async"
       />
-      <div aria-hidden className="pointer-events-none absolute inset-0 bg-cream/25" />
+      <div aria-hidden className="pointer-events-none absolute inset-0 bg-cream md:bg-cream/25" />
 
       <div
         aria-hidden
-        className="pointer-events-none absolute left-1/2 top-[58%] z-0 h-[min(72vw,540px)] w-[min(72vw,540px)] -translate-x-1/2 -translate-y-1/2 overflow-hidden opacity-95 sm:top-[55%] md:h-[min(58vw,500px)] md:w-[min(58vw,500px)]"
+        className="pointer-events-none absolute left-1/2 top-[58%] z-0 hidden h-[min(72vw,540px)] w-[min(72vw,540px)] -translate-x-1/2 -translate-y-1/2 overflow-hidden opacity-40 sm:top-[55%] md:block md:h-[min(58vw,500px)] md:w-[min(58vw,500px)]"
       >
         <img
           src={servicesDeco}
           alt=""
           className="h-[calc(100%+4rem)] w-full object-contain object-center animate-formats-bg-float"
           loading="lazy"
+          decoding="async"
         />
       </div>
 

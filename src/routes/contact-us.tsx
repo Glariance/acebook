@@ -50,14 +50,14 @@ function Contact() {
     <div ref={root} className="min-h-dvh">
       <Navbar />
       <PageHero title="Contact Us" crumb="Contact Us" formSource="contact_hero" />
-      <section className="py-20">
-        <div className="mx-auto grid max-w-6xl gap-8 px-4 sm:px-6 md:grid-cols-[1fr_360px]">
+      <section className="py-12 sm:py-20">
+        <div className="mx-auto grid max-w-6xl gap-6 px-4 sm:gap-8 sm:px-6 lg:grid-cols-[1fr_360px]">
           <form
             data-inquiry-form
             method="post"
             noValidate
             data-reveal
-            className="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-border md:p-8"
+            className="rounded-2xl bg-white p-4 shadow-sm ring-1 ring-border sm:p-6 md:p-8"
             onSubmit={async (e) => {
               e.preventDefault();
               const form = e.currentTarget;

@@ -20,7 +20,7 @@ export function SocialRail() {
     { Icon: Star, href: SITE_TRUSTPILOT_URL, label: "Trustpilot reviews" },
   ];
   return (
-    <div className="pointer-events-auto fixed left-0 top-1/2 z-50 hidden -translate-y-1/2 flex-col gap-2.5 sm:flex">
+    <div className="pointer-events-auto fixed left-0 top-1/2 z-50 hidden -translate-y-1/2 flex-col gap-2.5 lg:flex">
       {items.map(({ Icon, href, label }) => (
         <a
           key={label}
@@ -75,7 +75,7 @@ export function ContactRail() {
     "w-full rounded-md bg-brand-soft px-3 py-2.5 text-sm text-white placeholder:text-white/80 outline-none transition focus:bg-white focus:text-ink focus:placeholder:text-muted-foreground disabled:opacity-70";
 
   return (
-    <div className="pointer-events-auto fixed right-0 top-1/2 z-50 hidden -translate-y-1/2 flex-col items-end gap-2.5 sm:flex">
+    <div className="pointer-events-auto fixed right-0 top-1/2 z-50 hidden -translate-y-1/2 flex-col items-end gap-2.5 lg:flex">
       <RailHoverLink
         href={`mailto:${SITE_EMAIL}`}
         label="Email us"

@@ -70,6 +70,7 @@ export default function Testimonials() {
 
   useEffect(() => {
     if (!emblaApi) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const interval = window.setInterval(() => {
       emblaApi.scrollNext();
     }, 5000);
@@ -77,19 +78,19 @@ export default function Testimonials() {
   }, [emblaApi]);
 
   return (
-    <section className="relative overflow-hidden bg-cream-deep py-16">
-      <DecoCircle variant="solid" className="absolute -left-16 top-0 h-40 w-40 rounded-full bg-brand opacity-90" />
-      <DecoCircle variant="ring" className="absolute -right-20 bottom-10 h-56 w-56 rounded-full border-[24px] border-brand opacity-70" />
+    <section className="relative overflow-hidden bg-cream-deep py-12 sm:py-16">
+      <DecoCircle variant="solid" className="absolute -left-16 top-0 hidden h-40 w-40 rounded-full bg-brand opacity-30 md:block" />
+      <DecoCircle variant="ring" className="absolute -right-20 bottom-10 hidden h-56 w-56 rounded-full border-[24px] border-brand opacity-30 md:block" />
       <div className="relative mx-auto max-w-6xl px-4 sm:px-6">
-        <div className="flex items-start justify-between gap-4">
-          <div>
+        <div className="flex items-start justify-between gap-3 sm:gap-4">
+          <div className="min-w-0">
             <p className="section-eyebrow">What Our Clients Are Saying</p>
             <h2 className="mt-2 section-title">Client Reviews</h2>
             <p className="body-copy mt-3 max-w-xl">
               We have been serving clients around the globe. Our next success story might be yours.
             </p>
           </div>
-          <div className="flex gap-2">
+          <div className="flex shrink-0 gap-2">
             <button
               type="button"
               onClick={scrollPrev}

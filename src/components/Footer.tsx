@@ -1,7 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { Facebook, Instagram, Mail, MapPin, Phone, Star } from "lucide-react";
 import logo from "@/assets/logo.png";
-import footerDeco from "@/assets/bdgnaufw.png";
+import footerDeco from "@/assets/bdgnaufw-deco.png";
 import {
   SITE_ADDRESS_LINE1,
   SITE_ADDRESS_LINE2,
@@ -25,7 +25,7 @@ export default function Footer() {
     <footer className="relative overflow-hidden bg-cream">
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-y-0 right-0 z-0 hidden w-[min(54vw,580px)] overflow-hidden md:block"
+        className="pointer-events-none absolute inset-y-0 right-0 z-0 hidden w-[min(54vw,580px)] overflow-hidden opacity-45 md:block"
       >
         <img
           src={footerDeco}
@@ -39,7 +39,15 @@ export default function Footer() {
       <div className="relative z-10 mx-auto grid max-w-7xl gap-10 px-4 py-16 sm:grid-cols-2 sm:px-6 lg:grid-cols-4">
         <div>
           <Link to="/" className="inline-flex items-center">
-            <img src={logo} alt="Ace Book Publishers" className="h-12 w-auto" />
+            <img
+              src={logo}
+              alt="Ace Book Publishers"
+              width={160}
+              height={48}
+              className="h-11 w-auto sm:h-12"
+              loading="lazy"
+              decoding="async"
+            />
           </Link>
           <p className="body-copy mt-5 max-w-xs">
             Welcome to our platform! With our premier book publishing services, your work can effortlessly reach a global audience. Our dedicated team supports you at every stage. Join our community of 1,000,000+ authors.

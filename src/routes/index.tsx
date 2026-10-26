@@ -101,8 +101,19 @@ function Home() {
 
   useEffect(() => {
     if (typeof window === "undefined") return;
+    const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const isNarrow = window.matchMedia("(max-width: 767px)").matches;
     const ctx = gsap.context(() => {
-      gsap.from("[data-hero-stagger]", { y: 30, autoAlpha: 0, duration: 0.9, ease: "power3.out", stagger: 0.12, delay: 0.1 });
+      if (!prefersReduced && !isNarrow) {
+        gsap.from("[data-hero-stagger]", {
+          y: 30,
+          autoAlpha: 0,
+          duration: 0.9,
+          ease: "power3.out",
+          stagger: 0.12,
+          delay: 0.1,
+        });
+      }
       initScrollReveal(root.current);
     }, root);
     return () => {
@@ -129,19 +140,19 @@ function Home() {
             decoding="async"
           />
           <div className="absolute inset-0 bg-[oklch(0.16_0.005_60/0.38)]" />
-          <DecoCircle variant="glow" banner className="absolute -left-16 -top-10 h-64 w-64 rounded-full bg-brand/30 blur-3xl" />
-          <DecoCircle variant="glow" banner className="absolute right-10 top-20 h-72 w-72 rounded-full bg-brand/20 blur-3xl" />
-          <DecoCircle variant="glow" banner centerX className="absolute bottom-0 left-1/2 h-56 w-56 rounded-full bg-brand/20 blur-3xl md:h-72 md:w-72" />
-          <DecoCircle variant="ring" banner className="absolute -bottom-10 left-[6%] h-36 w-36 rounded-full border-[16px] border-brand opacity-55 md:h-48 md:w-48 md:border-[20px]" />
-          <DecoCircle variant="ring" banner className="absolute right-[14%] top-[15%] h-28 w-28 rounded-full border-[12px] border-white/30 opacity-70 md:h-40 md:w-40 md:border-[16px]" />
-          <DecoCircle variant="ring" banner className="absolute -right-8 bottom-[28%] h-32 w-32 rounded-full border-[14px] border-brand opacity-45 md:h-44 md:w-44 md:border-[18px]" />
-          <DecoCircle variant="solid" banner className="absolute bottom-[20%] left-[32%] h-14 w-14 rounded-full bg-brand/50 md:h-20 md:w-20" />
-          <DecoCircle variant="solid" banner className="absolute left-[10%] top-[38%] h-10 w-10 rounded-full bg-brand/65 md:h-14 md:w-14" />
-          <DecoCircle variant="solid" banner className="absolute right-[28%] bottom-[12%] h-8 w-8 rounded-full bg-white/20 md:h-12 md:w-12" />
-          <div className="relative mx-auto max-w-7xl px-6 pb-20 pt-36 sm:px-10 sm:pt-40 md:pb-28 md:pt-48">
-            <div className="grid items-center gap-8 md:grid-cols-2 md:gap-10 lg:gap-12">
+          <DecoCircle variant="glow" banner className="absolute -left-16 -top-10 hidden h-64 w-64 rounded-full bg-brand/30 blur-3xl md:block" />
+          <DecoCircle variant="glow" banner className="absolute right-10 top-20 hidden h-72 w-72 rounded-full bg-brand/20 blur-3xl md:block" />
+          <DecoCircle variant="glow" banner centerX className="absolute bottom-0 left-1/2 hidden h-56 w-56 rounded-full bg-brand/20 blur-3xl md:block md:h-72 md:w-72" />
+          <DecoCircle variant="ring" banner className="absolute -bottom-10 left-[6%] hidden h-36 w-36 rounded-full border-[16px] border-brand opacity-30 md:block md:h-48 md:w-48 md:border-[20px]" />
+          <DecoCircle variant="ring" banner className="absolute right-[14%] top-[15%] hidden h-28 w-28 rounded-full border-[12px] border-white/30 opacity-30 md:block md:h-40 md:w-40 md:border-[16px]" />
+          <DecoCircle variant="ring" banner className="absolute -right-8 bottom-[28%] hidden h-32 w-32 rounded-full border-[14px] border-brand opacity-30 md:block md:h-44 md:w-44 md:border-[18px]" />
+          <DecoCircle variant="solid" banner className="absolute bottom-[20%] left-[32%] hidden h-14 w-14 rounded-full bg-brand/35 md:block md:h-20 md:w-20" />
+          <DecoCircle variant="solid" banner className="absolute left-[10%] top-[38%] hidden h-10 w-10 rounded-full bg-brand/40 md:block md:h-14 md:w-14" />
+          <DecoCircle variant="solid" banner className="absolute right-[28%] bottom-[12%] hidden h-8 w-8 rounded-full bg-white/20 md:block md:h-12 md:w-12" />
+          <div className="relative mx-auto max-w-7xl px-4 pb-14 pt-28 sm:px-10 sm:pb-20 sm:pt-40 md:pb-28 md:pt-48">
+            <div className="grid items-center gap-6 md:grid-cols-2 md:gap-10 lg:gap-12">
             <div className="text-white md:pr-2 lg:pr-4">
-              <h1 data-hero-stagger className="text-3xl font-black leading-[1.08] sm:text-4xl md:text-5xl lg:text-[3.25rem]">
+              <h1 data-hero-stagger className="text-[1.85rem] font-black leading-[1.1] xs:text-3xl sm:text-4xl md:text-5xl lg:text-[3.25rem]">
                 Your Dream Book Begins Here
               </h1>
               <p data-hero-stagger className="body-copy-light mt-4 max-w-xl text-sm text-white/85 sm:mt-5 sm:text-base md:max-w-xl">
@@ -161,7 +172,7 @@ function Home() {
               noValidate
               data-hero-stagger
               onSubmit={handleHeroSubmit}
-              className="w-full max-w-sm self-start rounded-2xl border border-white/30 bg-white/15 p-5 shadow-2xl backdrop-blur-md sm:max-w-md md:ml-auto md:p-6"
+              className="w-full max-w-none self-start rounded-2xl border border-white/30 bg-white/15 p-4 shadow-2xl backdrop-blur-md sm:max-w-md sm:p-5 md:ml-auto md:p-6"
             >
               <h3 className="text-xl font-extrabold leading-tight text-white md:text-2xl">
                 Start Your Publishing Journey
@@ -195,9 +206,9 @@ function Home() {
         </div>
       </section>
 
-      {/* Inline contact bar */}
-      <div className="relative z-10 bg-cream">
-        <div className="relative z-10 mx-auto max-w-5xl -translate-y-1/2 px-4 sm:px-6">
+      {/* Inline contact bar — lighter lift on mobile so it doesn't cover the next section */}
+      <div className="relative z-10 bg-cream pb-6 pt-2 sm:pb-0 sm:pt-0">
+        <div className="relative z-10 mx-auto max-w-5xl -translate-y-4 px-4 sm:-translate-y-1/2 sm:px-6">
           <HeroQuickForm formSource="home_inline_bar" />
         </div>
       </div>
@@ -205,10 +216,10 @@ function Home() {
       <BookFormatsSection />
 
       {/* ABOUT — Best Book Publishers */}
-      <section className="relative overflow-hidden bg-cream-deep py-20">
-        <DecoCircle variant="solid" className="absolute -left-20 top-10 h-40 w-40 rounded-full bg-brand" />
-        <DecoCircle variant="ring" className="absolute right-0 top-10 h-48 w-48 rounded-full border-[20px] border-brand opacity-70" />
-        <DecoCircle variant="solid" className="absolute -right-12 bottom-10 h-40 w-40 rounded-full bg-brand opacity-90" />
+      <section className="relative overflow-hidden bg-cream-deep py-14 sm:py-20">
+        <DecoCircle variant="solid" className="absolute -left-20 top-10 hidden h-40 w-40 rounded-full bg-brand opacity-30 md:block" />
+        <DecoCircle variant="ring" className="absolute right-0 top-10 hidden h-48 w-48 rounded-full border-[20px] border-brand opacity-30 md:block" />
+        <DecoCircle variant="solid" className="absolute -right-12 bottom-10 hidden h-40 w-40 rounded-full bg-brand opacity-30 md:block" />
         <div className="relative mx-auto max-w-3xl px-4 text-center sm:px-6">
           <p data-reveal className="section-eyebrow">We Are The Best Book Publishers</p>
           <h2 data-reveal className="section-title mt-3">
@@ -264,13 +275,21 @@ function Home() {
       </section>
 
       {/* WHY CHOOSE US */}
-      <section className="relative overflow-hidden bg-white py-20">
-        <DecoCircle variant="ring" className="absolute -left-16 top-1/3 h-40 w-40 rounded-full border-[18px] border-brand opacity-60" />
-        <DecoCircle variant="solid" className="absolute -right-20 bottom-10 h-56 w-56 rounded-full bg-brand opacity-90" />
-        <div className="relative mx-auto grid max-w-6xl items-center gap-10 px-4 sm:px-6 md:grid-cols-2">
+      <section className="relative overflow-hidden bg-white py-14 sm:py-20">
+        <DecoCircle variant="ring" className="absolute -left-16 top-1/3 hidden h-40 w-40 rounded-full border-[18px] border-brand opacity-30 md:block" />
+        <DecoCircle variant="solid" className="absolute -right-20 bottom-10 hidden h-56 w-56 rounded-full bg-brand opacity-30 md:block" />
+        <div className="relative mx-auto grid max-w-6xl items-center gap-8 px-4 sm:gap-10 sm:px-6 md:grid-cols-2">
           <div data-reveal className="relative">
             <div className="absolute -left-3 -top-3 h-full w-full rounded-2xl border-2 border-brand" />
-            <img src={bookFeature} alt="Book cover" className="relative rounded-2xl shadow-xl" loading="lazy" />
+            <img
+              src={bookFeature}
+              alt="Book cover"
+              width={600}
+              height={800}
+              className="relative w-full rounded-2xl shadow-xl"
+              loading="lazy"
+              decoding="async"
+            />
           </div>
           <div data-reveal>
             <p className="section-eyebrow">Why Choose Us?</p>
@@ -309,8 +328,11 @@ function Home() {
           <img
             src={booksCollage}
             alt="Our works"
-            className="block min-h-[260px] w-full object-cover object-center sm:min-h-[320px] md:min-h-[380px]"
+            width={1400}
+            height={520}
+            className="block min-h-[200px] w-full object-cover object-center sm:min-h-[280px] md:min-h-[360px]"
             loading="lazy"
+            decoding="async"
           />
           <div
             aria-hidden
@@ -331,14 +353,14 @@ function Home() {
       </section>
 
       {/* PROCESS */}
-      <section className="py-20">
+      <section className="py-14 sm:py-20">
         <div className="mx-auto max-w-6xl px-4 text-center sm:px-6">
           <p data-reveal className="section-eyebrow">Working With</p>
           <h2 data-reveal className="mt-2 section-title">Inside Look At Our Publishing Process</h2>
           <p data-reveal className="body-copy mx-auto mt-3 max-w-2xl">
             Get a glimpse at how our skilled editors, designers, formatter, illustrators, spend days and night to publish your dream book.
           </p>
-          <div data-stagger className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <div data-stagger className="mt-8 grid gap-4 sm:mt-10 sm:grid-cols-2 lg:grid-cols-4">
             {processSteps.map((s) => (
               <article key={s.n} className="rounded-xl border border-border/80 bg-white p-5 text-left shadow-sm transition hover:-translate-y-1 hover:shadow-md">
                 <div className="flex items-center justify-between gap-3">
@@ -356,14 +378,14 @@ function Home() {
       </section>
 
       {/* BOOK WRITING SERVICES */}
-      <section className="relative overflow-hidden bg-cream py-20">
-        <DecoCircle variant="ring" className="absolute -left-16 top-8 h-44 w-44 rounded-full border-[18px] border-brand opacity-60 md:h-52 md:w-52 md:border-[22px]" />
-        <DecoCircle variant="solid" className="absolute left-[8%] bottom-12 h-16 w-16 rounded-full bg-brand/70 md:h-24 md:w-24" />
-        <DecoCircle variant="ring" className="absolute -right-12 top-1/4 h-36 w-36 rounded-full border-[14px] border-brand opacity-50 md:h-48 md:w-48 md:border-[18px]" />
-        <DecoCircle variant="solid" className="absolute -right-16 bottom-6 h-48 w-48 rounded-full bg-brand opacity-85 md:h-56 md:w-56" />
-        <DecoCircle variant="solid" className="absolute right-[38%] top-6 h-10 w-10 rounded-full bg-brand/45 md:h-14 md:w-14" />
+      <section className="relative overflow-hidden bg-cream py-14 sm:py-20">
+        <DecoCircle variant="ring" className="absolute -left-16 top-8 hidden h-44 w-44 rounded-full border-[18px] border-brand opacity-30 md:block md:h-52 md:w-52 md:border-[22px]" />
+        <DecoCircle variant="solid" className="absolute left-[8%] bottom-12 hidden h-16 w-16 rounded-full bg-brand/40 md:block md:h-24 md:w-24" />
+        <DecoCircle variant="ring" className="absolute -right-12 top-1/4 hidden h-36 w-36 rounded-full border-[14px] border-brand opacity-30 md:block md:h-48 md:w-48 md:border-[18px]" />
+        <DecoCircle variant="solid" className="absolute -right-16 bottom-6 hidden h-48 w-48 rounded-full bg-brand opacity-30 md:block md:h-56 md:w-56" />
+        <DecoCircle variant="solid" className="absolute right-[38%] top-6 hidden h-10 w-10 rounded-full bg-brand/30 md:block md:h-14 md:w-14" />
         <div className="relative z-10 mx-auto px-4 sm:px-6 lg:max-w-7xl lg:min-h-[580px]">
-          <div data-reveal className="max-w-xl py-4 lg:max-w-lg lg:py-8 xl:max-w-xl">
+          <div data-reveal className="max-w-xl py-2 sm:py-4 lg:max-w-lg lg:py-8 xl:max-w-xl">
             <p className="section-eyebrow">Get Your Children Book Published Today</p>
             <h2 className="section-title mt-2">What&apos;s Included in Our Children&apos;s Book Publishing Services</h2>
             <p className="body-copy mt-4 max-w-md">
@@ -387,7 +409,7 @@ function Home() {
             </div>
           </div>
         </div>
-        <div data-reveal className="pointer-events-none relative mt-10 h-[360px] overflow-visible sm:mt-12 sm:h-[440px] lg:absolute lg:inset-y-0 lg:right-0 lg:mt-0 lg:h-auto lg:w-[55%] xl:w-1/2">
+        <div data-reveal className="pointer-events-none relative mt-8 h-[280px] overflow-hidden sm:mt-12 sm:h-[400px] sm:overflow-visible lg:absolute lg:inset-y-0 lg:right-0 lg:mt-0 lg:h-auto lg:w-[55%] lg:overflow-visible xl:w-1/2">
           <TiltedBookShowcase />
         </div>
       </section>

@@ -11,8 +11,22 @@ const REVEAL_TRIGGER = {
 export function initScrollReveal(scope?: ParentNode | null) {
   if (typeof window === "undefined") return;
 
-  gsap.registerPlugin(ScrollTrigger);
   const queryRoot = scope ?? document;
+  const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const isNarrow = window.matchMedia("(max-width: 767px)").matches;
+
+  // Skip GSAP ScrollTrigger on mobile / reduced-motion — big TBT win for PageSpeed
+  if (prefersReduced || isNarrow) {
+    gsap.utils.toArray<HTMLElement>("[data-reveal]", queryRoot).forEach((el) => {
+      gsap.set(el, { clearProps: "all", autoAlpha: 1, y: 0 });
+    });
+    gsap.utils.toArray<HTMLElement>("[data-stagger]", queryRoot).forEach((wrap) => {
+      gsap.set(wrap.children, { clearProps: "all", autoAlpha: 1, y: 0 });
+    });
+    return;
+  }
+
+  gsap.registerPlugin(ScrollTrigger);
 
   gsap.utils.toArray<HTMLElement>("[data-reveal]", queryRoot).forEach((el) => {
     gsap.fromTo(

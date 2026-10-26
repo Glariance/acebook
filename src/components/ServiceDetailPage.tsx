@@ -189,7 +189,7 @@ export default function ServiceDetailPage({ content }: ServiceDetailPageProps) {
       <Navbar />
       <ServiceDetailHero title={content.label} crumb={content.label} />
 
-      <section className="relative z-0 -mt-10 bg-white pt-24 pb-16 md:-mt-12 md:pt-28 md:pb-20">
+      <section className="relative z-0 bg-white pt-8 pb-16 sm:-mt-10 sm:pt-24 md:-mt-12 md:pt-28 md:pb-20">
         <div className="mx-auto max-w-4xl px-4 text-center sm:px-6">
           <h2 data-reveal className="section-title">
             {content.intro.headingLines.map((line, i) => (
@@ -225,7 +225,7 @@ export default function ServiceDetailPage({ content }: ServiceDetailPageProps) {
       <section className="relative mt-4 overflow-hidden rounded-t-[2.5rem] bg-cream pt-20 pb-16 md:mt-6 md:pt-24 md:pb-20">
         <DecoCircle
           variant="solid"
-          className="absolute -right-16 -bottom-16 h-56 w-56 rounded-full bg-brand md:-right-20 md:-bottom-20 md:h-72 md:w-72"
+          className="absolute -right-16 -bottom-16 hidden h-56 w-56 rounded-full bg-brand opacity-30 md:block md:-right-20 md:-bottom-20 md:h-72 md:w-72"
         />
         <div className="relative mx-auto grid max-w-6xl items-center gap-10 px-4 sm:px-6 md:grid-cols-2">
           <div data-reveal className="overflow-hidden rounded-2xl">
@@ -282,7 +282,7 @@ export default function ServiceDetailPage({ content }: ServiceDetailPageProps) {
       <section className="relative overflow-hidden bg-cream py-16 md:py-20">
         <DecoCircle
           variant="ring"
-          className="absolute -left-28 -top-28 h-80 w-80 rounded-full border-[32px] border-brand opacity-90 md:-left-32 md:-top-32 md:h-96 md:w-96 md:border-[40px]"
+          className="absolute -left-28 -top-28 hidden h-80 w-80 rounded-full border-[32px] border-brand opacity-30 md:block md:-left-32 md:-top-32 md:h-96 md:w-96 md:border-[40px]"
         />
         <div className="relative mx-auto max-w-6xl px-4 sm:px-6">
           <div data-reveal className="flex flex-wrap items-end justify-between gap-4">
@@ -324,14 +324,14 @@ export default function ServiceDetailPage({ content }: ServiceDetailPageProps) {
       <section className="relative overflow-hidden bg-cream py-16 md:py-20">
         <DecoCircle
           variant="ring"
-          className="absolute -left-28 top-1/2 h-80 w-80 -translate-y-1/2 rounded-full border-[36px] border-brand opacity-90 md:-left-32 md:h-[28rem] md:w-[28rem] md:border-[44px]"
+          className="absolute -left-28 top-1/2 hidden h-80 w-80 -translate-y-1/2 rounded-full border-[36px] border-brand opacity-30 md:block md:-left-32 md:h-[28rem] md:w-[28rem] md:border-[44px]"
         />
         <DecoCircle
           variant="solid"
-          className="absolute -right-28 -bottom-24 h-80 w-80 rounded-full bg-brand md:-right-32 md:-bottom-28 md:h-[26rem] md:w-[26rem]"
+          className="absolute -right-28 -bottom-24 hidden h-80 w-80 rounded-full bg-brand opacity-30 md:block md:-right-32 md:-bottom-28 md:h-[26rem] md:w-[26rem]"
         />
         <div className="relative grid items-center gap-10 md:grid-cols-2 md:gap-10 lg:gap-12">
-          <div data-reveal className="relative min-h-[420px] overflow-x-clip sm:min-h-[500px] lg:min-h-[540px]">
+          <div data-reveal className="relative min-h-[280px] overflow-x-clip sm:min-h-[420px] md:min-h-[500px] lg:min-h-[540px]">
             <TiltedBookShowcase variant="ghostwriting" />
           </div>
           <div data-reveal className="px-4 sm:px-6 md:pr-8 lg:px-10">
@@ -397,7 +397,7 @@ export default function ServiceDetailPage({ content }: ServiceDetailPageProps) {
         <div className="relative overflow-hidden rounded-t-[2.5rem] bg-cream pb-16 pt-24 md:pb-20 md:pt-28">
           <DecoCircle
             variant="ring"
-            className="absolute -left-28 top-1/2 h-80 w-80 -translate-y-1/2 rounded-full border-[36px] border-brand opacity-90 md:-left-32 md:h-[28rem] md:w-[28rem] md:border-[44px]"
+            className="absolute -left-28 top-1/2 hidden h-80 w-80 -translate-y-1/2 rounded-full border-[36px] border-brand opacity-30 md:block md:-left-32 md:h-[28rem] md:w-[28rem] md:border-[44px]"
           />
           <div className="relative mx-auto grid max-w-6xl items-center gap-10 px-4 sm:px-6 md:grid-cols-2">
             <div data-reveal>

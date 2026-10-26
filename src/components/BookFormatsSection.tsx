@@ -2,10 +2,10 @@ import { useCallback, useEffect, useState } from "react";
 import useEmblaCarousel from "embla-carousel-react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { cn } from "@/lib/utils";
-import formatsBg from "@/assets/bdgnaufw.png";
-import ebooksImg from "@/assets/Ebooks.png";
-import pictureBooksImg from "@/assets/Picture Books.png";
-import magazinesImg from "@/assets/Magazines.png";
+import formatsBg from "@/assets/bdgnaufw-deco.png";
+import ebooksImg from "@/assets/ebooks.jpg";
+import pictureBooksImg from "@/assets/picture-books.jpg";
+import magazinesImg from "@/assets/magazines.jpg";
 import bookCoverFeature from "@/assets/book-cover-feature.jpg";
 
 const formats = [
@@ -61,6 +61,7 @@ export default function BookFormatsSection() {
 
   useEffect(() => {
     if (!emblaApi) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const interval = window.setInterval(() => {
       emblaApi.scrollNext();
     }, 4000);
@@ -68,10 +69,10 @@ export default function BookFormatsSection() {
   }, [emblaApi]);
 
   return (
-    <section className="relative overflow-hidden bg-cream py-20">
+    <section className="relative overflow-hidden bg-cream py-10 sm:py-20">
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-y-0 left-0 z-0 hidden w-[min(38vw,400px)] overflow-hidden md:block"
+        className="pointer-events-none absolute inset-y-0 left-0 z-0 hidden w-[min(38vw,400px)] overflow-hidden opacity-45 md:block"
       >
         <img
           src={formatsBg}

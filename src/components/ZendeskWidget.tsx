@@ -116,22 +116,42 @@ function afterZendeskReady() {
   renderZendeskMessenger();
   syncZendeskPageContext();
   enableZendeskUnreadAutoOpen();
-  // Client wants chat open ASAP on site load
   forceZendeskPopupBurst();
 }
 
-/** Load Zendesk immediately and auto-open the messenger popup. */
-function bootZendesk() {
+/**
+ * Start Zendesk after first paint / window load so LCP is not blocked,
+ * then auto-open the chat (client requirement).
+ */
+function bootZendeskAfterPaint() {
   configureBeforeSnippet();
   ensureZeStub();
 
-  void loadZendeskScript()
-    .then(() => {
-      afterZendeskReady();
-    })
-    .catch(() => {
-      /* Chat With Us can still retry via openZendeskChat */
-    });
+  const start = () => {
+    void loadZendeskScript()
+      .then(() => {
+        afterZendeskReady();
+      })
+      .catch(() => {
+        /* Chat With Us can still retry via openZendeskChat */
+      });
+  };
+
+  if (typeof window === "undefined") return;
+
+  if (document.readyState === "complete") {
+    // Yield so the browser can paint LCP first
+    window.setTimeout(start, 1500);
+    return;
+  }
+
+  window.addEventListener(
+    "load",
+    () => {
+      window.setTimeout(start, 800);
+    },
+    { once: true },
+  );
 }
 
 export default function ZendeskWidget() {
@@ -140,13 +160,12 @@ export default function ZendeskWidget() {
 
   useEffect(() => {
     if (typeof window === "undefined" || hideOnAdmin) return;
-    bootZendesk();
+    bootZendeskAfterPaint();
   }, [hideOnAdmin]);
 
   useEffect(() => {
     if (typeof window === "undefined" || hideOnAdmin) return;
     syncZendeskPageContext();
-    forceZendeskPopupBurst();
   }, [pathname, hideOnAdmin]);
 
   return null;

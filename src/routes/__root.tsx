@@ -10,7 +10,6 @@ import {
 import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
-import faviconUrl from "../assets/logo.png?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import DecoCirclesAnimator from "../components/DecoCirclesAnimator";
 import ZendeskWidget from "../components/ZendeskWidget";
@@ -137,11 +136,14 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       ],
       links: [
         { rel: "stylesheet", href: appCss },
-        { rel: "icon", href: faviconUrl, type: "image/png" },
-        { rel: "apple-touch-icon", href: faviconUrl },
+        /* Square ABP mark (48×48+) — Google ignores wide logos like logo.png */
+        { rel: "icon", href: "/favicon.ico", sizes: "any" },
+        { rel: "icon", type: "image/png", sizes: "32x32", href: "/favicon-32x32.png" },
+        { rel: "icon", type: "image/png", sizes: "48x48", href: "/favicon-48x48.png" },
+        { rel: "icon", type: "image/png", sizes: "192x192", href: "/favicon-192x192.png" },
+        { rel: "apple-touch-icon", sizes: "180x180", href: "/apple-touch-icon.png" },
         { rel: "preconnect", href: "https://fonts.googleapis.com" },
         { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "" },
-        { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" },
       ],
       scripts: [
         { type: "application/ld+json", children: JSON.stringify(organizationLd) },
@@ -155,11 +157,31 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
   errorComponent: ErrorComponent,
 });
 
+const POPPINS_CSS =
+  "https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap";
+
+const GTM_ID = "GTM-PTRVN96P";
+
 function RootShell({ children }: { children: ReactNode }) {
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
         <HeadContent />
+        {/* Google Tag Manager */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','${GTM_ID}');`,
+          }}
+        />
+        {/* Non-blocking Poppins: inject after first paint so LCP is not blocked */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){function l(){var e=document.createElement('link');e.rel='stylesheet';e.href=${JSON.stringify(POPPINS_CSS)};document.head.appendChild(e)}if(document.readyState==='complete')setTimeout(l,0);else window.addEventListener('load',function(){setTimeout(l,0)},{once:true})})();`,
+          }}
+        />
+        <noscript>
+          <link rel="stylesheet" href={POPPINS_CSS} />
+        </noscript>
         <script
           dangerouslySetInnerHTML={{
             __html:
@@ -168,6 +190,16 @@ function RootShell({ children }: { children: ReactNode }) {
         />
       </head>
       <body suppressHydrationWarning>
+        {/* Google Tag Manager (noscript) */}
+        <noscript>
+          <iframe
+            src={`https://www.googletagmanager.com/ns.html?id=${GTM_ID}`}
+            height="0"
+            width="0"
+            style={{ display: "none", visibility: "hidden" }}
+            title="Google Tag Manager"
+          />
+        </noscript>
         {children}
         <Scripts />
       </body>
