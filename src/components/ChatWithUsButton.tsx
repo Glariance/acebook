@@ -1,6 +1,6 @@
 import type { MouseEvent, ReactNode } from "react";
 import { MessageSquare, ArrowUpRight } from "lucide-react";
-import { openZendeskChat } from "@/lib/zendesk";
+import { openAwsodeskChat } from "@/lib/awsodesk";
 import { cn } from "@/lib/utils";
 
 type ChatWithUsButtonProps = {
@@ -21,7 +21,7 @@ export default function ChatWithUsButton({
   const handleClick = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     e.stopPropagation();
-    openZendeskChat();
+    openAwsodeskChat();
   };
 
   return (

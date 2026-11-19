@@ -12,7 +12,7 @@ import { useEffect, type ReactNode } from "react";
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import DecoCirclesAnimator from "../components/DecoCirclesAnimator";
-import ZendeskWidget from "../components/ZendeskWidget";
+import AwsodeskWidget from "../components/AwsodeskWidget";
 import RouteHeadSync from "../components/RouteHeadSync";
 import MobileStickyCall from "../components/MobileStickyCall";
 import { InquiryFormProvider } from "../context/InquiryFormContext";
@@ -173,6 +173,13 @@ function RootShell({ children }: { children: ReactNode }) {
             __html: `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','${GTM_ID}');`,
           }}
         />
+        {/* AWSOdesk chat — async in <head> for fast non-blocking load */}
+        <script
+          id="lcp-snippet"
+          async
+          src="https://awsodesk.com/widget.js?team=qtTwifpKqz"
+          data-team="qtTwifpKqz"
+        />
         {/* Non-blocking Poppins: inject after first paint so LCP is not blocked */}
         <script
           dangerouslySetInnerHTML={{
@@ -215,7 +222,7 @@ function RootComponent() {
       <InquiryFormProvider>
         <RouteHeadSync />
         <DecoCirclesAnimator />
-        <ZendeskWidget />
+        <AwsodeskWidget />
         <MobileStickyCall />
         {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
         <Outlet />

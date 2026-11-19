@@ -21,6 +21,7 @@ export const serviceSlugAliases: Record<string, ServiceSlug> = {
   "christian-book-publishing": "christian-book",
   "audiobook-book-publishing": "audiobook",
   "barnes-publishing": "barnes-and-noble-publishing",
+  "amazon-kdp-publishing": "kdp-publishing",
 };
 
 export function resolveServiceSlug(slug: string): ServiceSlug | undefined {

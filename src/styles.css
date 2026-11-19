@@ -86,6 +86,7 @@
     scroll-behavior: smooth;
     -webkit-text-size-adjust: 100%;
     text-size-adjust: 100%;
+    overflow-x: hidden;
   }
   @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
@@ -95,7 +96,8 @@
     color: var(--color-foreground);
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
-    overflow-x: clip;
+    /* Avoid overflow-x:clip — it can trap/hide AWSOdesk fixed chat (Shadow DOM) */
+    overflow-x: hidden;
   }
   img, video, canvas, svg {
     max-width: 100%;
@@ -302,6 +304,23 @@
   }
 }
 
+/* Keep AWSOdesk chat above site chrome (do NOT set pointer-events:none —
+   the UI lives in Shadow DOM and clicks would pass through to the page) */
+#lcp-widget {
+  position: relative;
+  z-index: 2147483000;
+  pointer-events: auto !important;
+  overscroll-behavior: contain;
+}
+
+/* While chat panel is open, stop the page behind from scrolling */
+html.lcp-chat-open,
+html.lcp-chat-open body {
+  overflow: hidden !important;
+  overscroll-behavior: none;
+  touch-action: none;
+}
+
 .form-toast {
   border-radius: 0.75rem !important;
   box-shadow: 0 12px 32px -8px oklch(0.66 0.18 45 / 0.35) !important;
@@ -385,26 +404,6 @@
 
 .form-toast-progress {
   background: rgb(255 255 255 / 0.85) !important;
-}
-
-/* Zendesk chat launcher — match site brand orange */
-.zEWidget-launcher,
-.zEWidget-launcher:focus,
-.zEWidget-launcher:hover {
-  background-color: var(--brand) !important;
-  color: white !important;
-  border-color: var(--brand-deep) !important;
-}
-
-.zEWidget-launcher .zEWidget-launcherIcon,
-.zEWidget-launcher .zEWidget-launcherIcon svg {
-  color: white !important;
-  fill: white !important;
-}
-
-#Embed,
-#Embed iframe#launcher {
-  z-index: 40;
 }
 
 html {

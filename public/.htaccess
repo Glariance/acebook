@@ -27,15 +27,23 @@
   RewriteRule ^about/?$ /about-us [R=301,L]
   RewriteRule ^contact/?$ /contact-us [R=301,L]
 
+  # /index and /index.html → home (THE_REQUEST only — do NOT match internal SPA rewrite to index.html)
+  RewriteCond %{THE_REQUEST} \s/+index\.html[\s?] [NC]
+  RewriteRule ^index\.html$ / [R=301,L]
+  RewriteCond %{THE_REQUEST} \s/+index/?[\s?] [NC]
+  RewriteRule ^index/?$ / [R=301,L]
+
   # Old long service slugs → short preferred slugs
   RewriteRule ^childrens-book-publishing/?$ /childrens-book [R=301,L]
   RewriteRule ^christian-book-publishing/?$ /christian-book [R=301,L]
   RewriteRule ^audiobook-book-publishing/?$ /audiobook [R=301,L]
   RewriteRule ^barnes-publishing/?$ /barnes-and-noble-publishing [R=301,L]
+  RewriteRule ^amazon-kdp-publishing/?$ /kdp-publishing [R=301,L]
   RewriteRule ^services/childrens-book-publishing/?$ /childrens-book [R=301,L]
   RewriteRule ^services/christian-book-publishing/?$ /christian-book [R=301,L]
   RewriteRule ^services/audiobook-book-publishing/?$ /audiobook [R=301,L]
   RewriteRule ^services/barnes-publishing/?$ /barnes-and-noble-publishing [R=301,L]
+  RewriteRule ^services/amazon-kdp-publishing/?$ /kdp-publishing [R=301,L]
 
   # Legacy /services/:slug → /:slug
   RewriteRule ^services/(book-publishing|kdp-publishing|apple-book-publishing|barnes-and-noble-publishing|kobo-book-publishing|book-marketing|book-editing|ghostwriting|book-cover-design|childrens-book|christian-book|audiobook)/?$ /$1 [R=301,L]

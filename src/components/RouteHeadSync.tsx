@@ -2,7 +2,6 @@ import { useEffect } from "react";
 import { useRouterState } from "@tanstack/react-router";
 import { buildDocumentTitle, normalizeRoutePathname } from "@/lib/routePageTitle";
 import { buildCanonicalHref, buildMetaDescription, buildOpenGraphTags, buildRobotsContent } from "@/lib/routeMeta";
-import { forceZendeskPopupBurst, shouldAutoOpenZendeskWidget, syncZendeskPageContext } from "@/lib/zendesk";
 
 function upsertMetaName(name: string, content: string) {
   let el = document.querySelector(`meta[name="${name}"]`) as HTMLMetaElement | null;
@@ -43,7 +42,7 @@ function setRobotsMeta(content: string | null) {
   upsertMetaName("robots", content);
 }
 
-/** Client-side head sync for SPA navigations (canonical, OG, robots, Zendesk context). */
+/** Client-side head sync for SPA navigations (canonical, OG, robots). */
 export default function RouteHeadSync() {
   const pathname = useRouterState({ select: (s) => s.location.pathname });
 
@@ -71,12 +70,6 @@ export default function RouteHeadSync() {
     upsertMetaName("twitter:title", og.title);
     upsertMetaName("twitter:description", og.description);
     upsertMetaName("twitter:image", og.image);
-
-    const url = window.location.href;
-    syncZendeskPageContext({ title, url });
-    if (shouldAutoOpenZendeskWidget(pathname)) {
-      forceZendeskPopupBurst();
-    }
   }, [pathname]);
 
   return null;
